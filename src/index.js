@@ -3,13 +3,33 @@ import ReactDOM from "react-dom";
 
 import "./styles.css";
 
-function App() {
-  return (
-    <div className="App">
-      <h1>Hello CodeSandbox</h1>
-      <h2>Start editing to see some magic happen!</h2>
-    </div>
-  );
+const Todo = props => (
+	<li>
+		<input type="checkbox" />
+		<button>delete</button>
+		<span>{props.todo.text}</span>
+	</li>
+);
+
+class App extends React.Component {
+	constructor() {
+		super();
+		this.state = {
+			todos: []
+		};
+	}
+	addTodo() {
+		const text = prompt("TODO text please!");
+		this.setState({ todos: [...this.state.todos, { text: text }] });
+	}
+	render() {
+		return (
+			<div>
+				<button onClick={() => this.addTodo()}>Add Todo</button>
+				<ul>{this.state.todos.map(todo => <Todo todo={todo} />)}</ul>
+			</div>
+		);
+	}
 }
 
 const rootElement = document.getElementById("root");
